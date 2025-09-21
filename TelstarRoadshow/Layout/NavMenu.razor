@@ -4,9 +4,10 @@
         <!-- Left: Logo + TELSTAR Text -->
         <a href="/" class="flex items-center space-x-3">
             <img src="images/logo.png" alt="Telstar Logo" class="h-14 w-auto" />
-            <span class="text-2xl font-bold tracking-widest text-white transition hover:text-cyan-400">
+            <span class="text-2xl font-medium tracking-widest text-white transition hover:text-cyan-400" style="font-family: 'Liberation Serif', serif;">
                 TELSTAR
             </span>
+
         </a>
 
         <!-- Desktop Menu & Icons -->
@@ -60,6 +61,12 @@
 
     btn.addEventListener('click', () => {
       menu.classList.toggle('hidden');
+    });
+
+    window.addEventListener('resize', () => {
+      if (window.innerWidth >= 768) {
+        menu.classList.add('hidden');
+      }
     });
 </script>
 
