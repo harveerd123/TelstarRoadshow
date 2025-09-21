@@ -270,9 +270,6 @@
     border-style: var(--tw-border-style);
     border-width: 1px;
   }
-  .bg-\[\#212121\] {
-    background-color: #212121;
-  }
   .bg-black {
     background-color: var(--color-black);
   }
@@ -358,29 +355,6 @@
   .duration-300 {
     --tw-duration: 300ms;
     transition-duration: 300ms;
-  }
-  .hover\:text-cyan-400 {
-    &:hover {
-      @media (hover: hover) {
-        color: var(--color-cyan-400);
-      }
-    }
-  }
-  .focus\:outline-none {
-    &:focus {
-      --tw-outline-style: none;
-      outline-style: none;
-    }
-  }
-  .md\:flex {
-    @media (width >= 48rem) {
-      display: flex;
-    }
-  }
-  .md\:hidden {
-    @media (width >= 48rem) {
-      display: none;
-    }
   }
 }
 @property --tw-space-x-reverse {
