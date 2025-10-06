@@ -1,5 +1,5 @@
 ﻿@page "/media"
-
+@inject IJSRuntime JS
 <section class="min-h-screen px-6 pt-25 text-white">
     <div class="max-w-full space-y-12">
 
@@ -18,22 +18,23 @@
 
             <!-- Image Card -->
             <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="/images/event.jpg"
+                <img src="images/event.JPG"
                      alt="Event"
                      class="absolute inset-0 h-full w-full object-cover" />
             </div>
 
             <!-- Video Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <video class="absolute inset-0 h-full w-full object-cover" autoplay muted loop playsinline>
-                    <source src="/videos/kirat_video.mp4" type="video/mp4">
+             <div class="relative h-80 overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                <video class="video-play absolute inset-0 z-0 h-full w-full object-cover" loop muted playsinline preload="auto">
+                    <source src="videos/kirat_video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
 
+
             <!-- Image Card -->
             <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="/images/booth.jpg"
+                <img src="images/booth.jpg"
                      alt="DJ Booth Setup"
                      class="absolute inset-0 h-full w-full object-cover" />
             </div>
@@ -49,3 +50,22 @@
 </section>
 
 
+@code {
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+        if (firstRender)
+        {
+            await JS.InvokeVoidAsync("window.playVideo", "video-play");
+        }
+    }
+}
+
+<script>
+    window.playVideo = function(videoClass) {
+        const videos = document.getElementsByClassName(videoClass);
+        for (let i = 0; i < videos.length; i++) {
+            videos[i].muted = true;   // Safari requires muted
+            videos[i].play();         // Trigger autoplay
+        }
+    }
+</script>
