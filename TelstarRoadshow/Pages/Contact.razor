@@ -1,4 +1,8 @@
 ﻿@page "/contact"
+@using System.Net.Http
+@using System.Net.Http.Json
+@using System.ComponentModel.DataAnnotations
+@inject HttpClient Http
 
 <section class="min-h-screen px-6 pt-25 text-white">
     <div class="mx-auto max-w-4xl space-y-12">
@@ -11,37 +15,61 @@
         <!-- Intro -->
         <p class="mx-auto max-w-2xl text-center text-lg text-gray-300">
             Have an event coming up? Want to work with us or just ask a question?
-            Fill out the form below or reach us directly — we’d love to hear from you.
+            Fill out the form below — we’d love to hear from you.
         </p>
 
         <!-- Contact Form -->
-        <form class="space-y-6 rounded-xl bg-gray-800 p-8 shadow-md">
-            <div>
-                <label class="block text-sm font-medium text-cyan-400">Name</label>
-                <input type="text"
-                       class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                       placeholder="Your name" />
-            </div>
+        <EditForm Model="@formModel" OnValidSubmit="SendMessageAsync">
+            <DataAnnotationsValidator />
+            <ValidationSummary />
 
-            <div>
-                <label class="block text-sm font-medium text-cyan-400">Email</label>
-                <input type="email"
-                       class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                       placeholder="you@example.com" />
-            </div>
+            <div class="space-y-6 rounded-xl bg-gray-800 p-8 shadow-md">
+                <div>
+                    <label class="block text-sm font-medium text-cyan-400">Name</label>
+                    <InputText @bind-Value="formModel.Name"
+                               class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
+                               placeholder="Your name" />
+                    <ValidationMessage For="@(() => formModel.Name)" />
+                </div>
 
-            <div>
-                <label class="block text-sm font-medium text-cyan-400">Message</label>
-                <textarea rows="5"
-                          class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                          placeholder="Tell us about your event..."></textarea>
-            </div>
+                <div>
+                    <label class="block text-sm font-medium text-cyan-400">Email</label>
+                    <InputText @bind-Value="formModel.Email"
+                               type="email"
+                               class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
+                               placeholder="you@example.com" />
+                    <ValidationMessage For="@(() => formModel.Email)" />
+                </div>
 
-            <button type="submit"
-                    class="w-full rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-cyan-400 hover:shadow-lg">
-                Send Message
-            </button>
-        </form>
+                <div>
+                    <label class="block text-sm font-medium text-cyan-400">Message</label>
+                    <InputTextArea @bind-Value="formModel.Message"
+                                   rows="5"
+                                   class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
+                                   placeholder="Tell us about your event..." />
+                    <ValidationMessage For="@(() => formModel.Message)" />
+                </div>
+
+                <button type="submit"
+                        class="w-full rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-cyan-400 hover:shadow-lg">
+                    @if (isSending)
+                    {
+                        <span>Sending...</span>
+                    }
+                    else
+                    {
+                        <span>Send Message</span>
+                    }
+                </button>
+
+                @if (!string.IsNullOrEmpty(message))
+                {
+                    <p class="mt-4 text-center @(isSuccess ? "text-green-400" : "text-red-400")">
+                        @message
+                    </p>
+                }
+            </div>
+        </EditForm>
 
         <!-- Contact Info -->
         <div class="space-y-4 text-center">
@@ -59,3 +87,65 @@
 
     </div>
 </section>
+
+@code {
+    private readonly string web3FormsKey = "e5fc3a39-dd52-4f26-9405-7861d31845c9";
+    private ContactFormModel formModel = new();
+    private bool isSending = false;
+    private string? message;
+    private bool isSuccess;
+
+    private async Task SendMessageAsync()
+    {
+        isSending = true;
+        message = null;
+
+        var formData = new Dictionary<string, string>
+        {
+            ["access_key"] = web3FormsKey,
+            ["subject"] = "New message from Telstar website",
+            ["name"] = formModel.Name,
+            ["email"] = formModel.Email,
+            ["message"] = formModel.Message
+        };
+
+        try
+        {
+            var response = await Http.PostAsJsonAsync("https://api.web3forms.com/submit", formData);
+
+            if (response.IsSuccessStatusCode)
+            {
+                isSuccess = true;
+                message = "✅ Message sent successfully!";
+                formModel = new();
+            }
+            else
+            {
+                isSuccess = false;
+                message = "❌ Something went wrong. Please try again later.";
+            }
+        }
+        catch
+        {
+            isSuccess = false;
+            message = "⚠️ Unable to send message. Check your connection.";
+        }
+        finally
+        {
+            isSending = false;
+        }
+    }
+
+    public class ContactFormModel
+    {
+        [Required(ErrorMessage = "Name is required.")]
+        public string Name { get; set; } = "";
+
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        public string Email { get; set; } = "";
+
+        [Required(ErrorMessage = "Message cannot be empty.")]
+        public string Message { get; set; } = "";
+    }
+}
