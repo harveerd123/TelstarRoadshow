@@ -2,7 +2,9 @@ name: Blazor WASM CI/CD Test
 
 # ONLY manual runs
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - force-register-workflow 
 
 jobs:
   build-and-test-deploy:
