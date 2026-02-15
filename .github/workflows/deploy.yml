@@ -1,0 +1,44 @@
+name: Blazor WASM CI/CD
+
+on:
+  push:
+    branches:
+      - master   # run on master branch
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1. Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2. Setup .NET 9 SDK
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      # 3. Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore
+
+      # 4. Build & publish Blazor WebAssembly app
+      - name: Publish Blazor WebAssembly
+        run: dotnet publish -c Release -o ./publish
+
+      # 5. Copy index.html to 404.html for SPA routing
+      - name: Ensure 404.html exists
+        run: cp ./publish/wwwroot/index.html ./publish/wwwroot/404.html
+
+      # 6. Deploy to gh-pages
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./publish/wwwroot
+          publish_branch: gh-pages
+          force_orphan: true    # overwrite old files
+          keep_files: true       # preserves files already existing (CNAME & .nojekyll)
+
