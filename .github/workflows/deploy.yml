@@ -5,6 +5,9 @@ on:
     branches:
       - cicdtestrun
 
+permissions:
+  contents: write
+
 jobs:
   build-and-test-deploy:
     runs-on: ubuntu-latest
