@@ -1,0 +1,53 @@
+name: Blazor WASM CI/CD
+
+on:
+  push:
+    branches:
+      - master
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-test-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 1️⃣ Checkout repository
+      - name: Checkout repo
+        uses: actions/checkout@v4
+
+      # 2️⃣ Setup .NET 9 SDK
+      - name: Setup .NET 9
+        uses: actions/setup-dotnet@v3
+        with:
+          dotnet-version: '9.0.x'
+
+      # 3️⃣ Restore dependencies
+      - name: Restore dependencies
+        run: dotnet restore TelstarRoadshow/TelstarRoadshow.csproj
+
+      # 4️⃣ Install wasm-tools for optimization
+      - name: Install wasm-tools workload
+        run: dotnet workload install wasm-tools
+
+      # 5️⃣ Publish Blazor WebAssembly (directly targeting project)
+      - name: Publish Blazor WebAssembly
+        run: dotnet publish TelstarRoadshow/TelstarRoadshow.csproj -c Release -o ./publish
+
+      # 6️⃣ Copy index.html → 404.html for SPA routing
+      - name: Ensure 404.html exists
+        run: cp ./publish/wwwroot/index.html ./publish/wwwroot/404.html
+
+      # 7️⃣ Add .nojekyll
+      - name: Add .nojekyll file
+        run: touch ./publish/wwwroot/.nojekyll
+
+      # 8️⃣ Deploy to gh-pages
+      - name: Deploy to gh-pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./publish/wwwroot
+          publish_branch: gh-pages
+          keep_files: true
