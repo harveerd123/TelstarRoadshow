@@ -1,80 +1,84 @@
 ﻿@page "/media"
 @inject IJSRuntime JS
-<section class="min-h-screen px-6 pt-25 text-white">
-    <div class="max-w-full space-y-6">
 
-        <!-- Page Heading -->
-        <h1 class="text-center text-4xl font-bold tracking-wide text-cyan-400 outline-none focus:outline-none">
-            Media Gallery
-        </h1>
+<div class="main px-4 py-8">
+    <section class="min-h-screen px-6 pt-25 text-white">
+        <div class="max-w-full space-y-6">
 
-        <!-- Intro -->
-        <p class="mx-auto max-w-3xl text-center text-lg text-gray-300">
-            A showcase of our past events, productions, and unforgettable moments captured on stage and behind the scenes.
-        </p>
+            <!-- Page Heading -->
+            <h1 class="text-center text-4xl font-bold tracking-wide text-cyan-400 outline-none focus:outline-none">
+                Media Gallery
+            </h1>
 
-        <!-- Media Grid -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+            <!-- Intro -->
+            <p class="mx-auto max-w-3xl text-center text-lg text-gray-300">
+                A showcase of our past events, productions, and unforgettable moments captured on stage and behind the scenes.
+            </p>
 
-            <!-- Image Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="images/event.JPG"
-                     alt="Event"
-                     class="absolute inset-0 h-full w-full object-cover" />
+            <!-- Media Grid -->
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                <!-- Image Card -->
+                <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <img src="images/event.JPG"
+                         alt="Event"
+                         class="absolute inset-0 h-full w-full object-cover" />
+                </div>
+
+                <!-- Video Card -->
+                <div class="relative h-80 overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <video class="video-play absolute inset-0 z-0 h-full w-full object-cover" loop muted playsinline preload="auto">
+                        <source src="videos/kirat_video.mp4" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                </div>
+
+
+                <!-- Image Card -->
+                <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <img src="images/booth.jpg"
+                         alt="DJ Booth Setup"
+                         class="absolute inset-0 h-full w-full object-cover" />
+                </div>
+
             </div>
 
-            <!-- Video Card -->
-             <div class="relative h-80 overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <video class="video-play absolute inset-0 z-0 h-full w-full object-cover" loop muted playsinline preload="auto">
-                    <source src="videos/kirat_video.mp4" type="video/mp4">
-                    Your browser does not support the video tag.
-                </video>
+            <!-- Media Grid -->
+            <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
+
+                <!-- Image Card -->
+                <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <img src="images/sanjha1.JPG"
+                         alt="Event"
+                         class="absolute inset-0 h-full w-full object-cover" />
+                </div>
+
+                <!-- Image Card -->
+                <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <img src="images/eastlondon.jpg"
+                         alt="Event"
+                         class="absolute inset-0 h-full w-full object-cover" />
+                </div>
+
+
+                <!-- Image Card -->
+                <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
+                    <img src="images/sanjha3.jpg"
+                         alt="Event"
+                         class="absolute inset-0 h-full w-full object-cover" />
+                </div>
+
             </div>
 
-
-            <!-- Image Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="images/booth.jpg"
-                     alt="DJ Booth Setup"
-                     class="absolute inset-0 h-full w-full object-cover" />
+            <!-- Closing -->
+            <div class="mt-12 text-center">
+                <h3 class="text-2xl font-bold text-cyan-400">Relive the Moments.</h3>
+                <p class="mt-2 text-gray-300">Experience the sound, the visuals, and the legacy of Telstar.</p>
             </div>
-
         </div>
+    </section>
+</div>
 
-        <!-- Media Grid -->
-        <div class="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
-
-            <!-- Image Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="images/sanjha1.JPG"
-                     alt="Event"
-                     class="absolute inset-0 h-full w-full object-cover" />
-            </div>
-
-            <!-- Image Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="images/eastlondon.jpg"
-                     alt="Event"
-                     class="absolute inset-0 h-full w-full object-cover" />
-            </div>
-
-
-            <!-- Image Card -->
-            <div class="relative h-80 transform overflow-hidden rounded-xl shadow-md transition duration-200 hover:scale-105 hover:shadow-lg">
-                <img src="images/sanjha3.jpg"
-                     alt="Event"
-                     class="absolute inset-0 h-full w-full object-cover" />
-            </div>
-
-        </div>
-
-        <!-- Closing -->
-        <div class="mt-12 text-center">
-            <h3 class="text-2xl font-bold text-cyan-400">Relive the Moments.</h3>
-            <p class="mt-2 text-gray-300">Experience the sound, the visuals, and the legacy of Telstar.</p>
-        </div>
-    </div>
-</section>
 
 
 @code {
