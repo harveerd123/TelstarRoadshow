@@ -1,7 +1,7 @@
 {
   "mainAssemblyName": "TelstarRoadshow",
   "resources": {
-    "hash": "sha256-bedzIvr3HM9GftVrhqFwVi6azOfq2B6sjXpBGSspm4s=",
+    "hash": "sha256-hKjnGnajxHv14RdTKQ+EG2kAcziO+6v5eCr6WSv1BIE=",
     "fingerprinting": {
       "Microsoft.AspNetCore.Components.17k6yv50h5.wasm": "Microsoft.AspNetCore.Components.wasm",
       "Microsoft.AspNetCore.Components.Forms.sxuye9wrru.wasm": "Microsoft.AspNetCore.Components.Forms.wasm",
@@ -46,7 +46,7 @@
       "System.Text.RegularExpressions.pjhal65ko1.wasm": "System.Text.RegularExpressions.wasm",
       "System.dqfxtvioy0.wasm": "System.wasm",
       "System.Private.CoreLib.6b8044ssa5.wasm": "System.Private.CoreLib.wasm",
-      "TelstarRoadshow.0mm8azsaff.wasm": "TelstarRoadshow.wasm",
+      "TelstarRoadshow.n7hhyno1y6.wasm": "TelstarRoadshow.wasm",
       "dotnet.js": "dotnet.js",
       "dotnet.native.l1ds2rhypd.js": "dotnet.native.js",
       "dotnet.native.etgrtk5jba.wasm": "dotnet.native.wasm",
@@ -115,7 +115,7 @@
       "System.Text.Json.2cpw97x4y5.wasm": "sha256-voJ3iCQQ5IvHJmihzkAL4NVk1k7Cdq/ot5aKBC+DDok=",
       "System.Text.RegularExpressions.pjhal65ko1.wasm": "sha256-VdTVx7BqfLgxpexvMTkSI3N233xrnZp5GxwrZM9G28k=",
       "System.dqfxtvioy0.wasm": "sha256-5QZAjy4n7513fYxCXSXTsAkUmRsLiZ8m621Ot4k7FB0=",
-      "TelstarRoadshow.0mm8azsaff.wasm": "sha256-eBqK07do1IA8kzOZb5FCn09r8uF3aDqHr326lhKv0Rw="
+      "TelstarRoadshow.n7hhyno1y6.wasm": "sha256-nbDVC+5HoyzAX9W7pbwnroAH7CCbGtrfD5lE+KnzNyA="
     }
   },
   "cacheBootResources": true,
