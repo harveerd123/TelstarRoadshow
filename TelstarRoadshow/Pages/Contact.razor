@@ -4,88 +4,91 @@
 @using System.ComponentModel.DataAnnotations
 @inject HttpClient Http
 
-<section class="min-h-screen px-6 pt-25 text-white">
-    <div class="mx-auto max-w-4xl space-y-6">
+<div class="main px-4 py-8">
+    <section class="min-h-screen px-6 pt-25 text-white">
+        <div class="mx-auto max-w-4xl space-y-6">
 
-        <!-- Page Heading -->
-        <h1 class="text-center text-4xl font-bold tracking-wide text-cyan-400 outline-none focus:outline-none">
-            Get in Touch
-        </h1>
+            <!-- Page Heading -->
+            <h1 class="text-center text-4xl font-bold tracking-wide text-cyan-400 outline-none focus:outline-none">
+                Get in Touch
+            </h1>
 
-        <!-- Intro -->
-        <p class="mx-auto max-w-2xl text-center text-lg text-gray-300">
-            Have an event coming up? Want to work with us or just ask a question?
-            Fill out the form below — we’d love to hear from you.
-        </p>
+            <!-- Intro -->
+            <p class="mx-auto max-w-2xl text-center text-lg text-gray-300">
+                Have an event coming up? Want to work with us or just ask a question?
+                Fill out the form below — we’d love to hear from you.
+            </p>
 
-        <!-- Contact Form -->
-        <EditForm Model="@formModel" OnValidSubmit="SendMessageAsync">
-            <DataAnnotationsValidator />
+            <!-- Contact Form -->
+            <EditForm Model="@formModel" OnValidSubmit="SendMessageAsync">
+                <DataAnnotationsValidator />
 
-            <div class="space-y-6 rounded-xl bg-gray-800 p-8 shadow-md">
-                <div>
-                    <label class="block text-sm font-medium text-cyan-400">Name</label>
-                    <InputText @bind-Value="formModel.Name"
-                               class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                               placeholder="Your name" />
-                    <ValidationMessage For="@(() => formModel.Name)" />
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-cyan-400">Email</label>
-                    <InputText @bind-Value="formModel.Email"
-                               type="email"
-                               class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                               placeholder="you@example.com" />
-                    <ValidationMessage For="@(() => formModel.Email)" />
-                </div>
-
-                <div>
-                    <label class="block text-sm font-medium text-cyan-400">Message</label>
-                    <InputTextArea @bind-Value="formModel.Message"
-                                   rows="5"
+                <div class="space-y-6 rounded-xl bg-gray-800 p-8 shadow-md">
+                    <div>
+                        <label class="block text-sm font-medium text-cyan-400">Name</label>
+                        <InputText @bind-Value="formModel.Name"
                                    class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
-                                   placeholder="Tell us about your event..." />
-                    <ValidationMessage For="@(() => formModel.Message)" />
+                                   placeholder="Your name" />
+                        <ValidationMessage For="@(() => formModel.Name)" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-cyan-400">Email</label>
+                        <InputText @bind-Value="formModel.Email"
+                                   type="email"
+                                   class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
+                                   placeholder="you@example.com" />
+                        <ValidationMessage For="@(() => formModel.Email)" />
+                    </div>
+
+                    <div>
+                        <label class="block text-sm font-medium text-cyan-400">Message</label>
+                        <InputTextArea @bind-Value="formModel.Message"
+                                       rows="5"
+                                       class="mt-1 w-full rounded-lg border border-gray-600 bg-gray-900 px-4 py-2 text-white focus:border-cyan-400 focus:ring-2 focus:ring-cyan-400"
+                                       placeholder="Tell us about your event..." />
+                        <ValidationMessage For="@(() => formModel.Message)" />
+                    </div>
+
+                    <button type="submit"
+                            class="w-full rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-cyan-400 hover:shadow-lg">
+                        @if (isSending)
+                        {
+                            <span>Sending...</span>
+                        }
+                        else
+                        {
+                            <span>Send Message</span>
+                        }
+                    </button>
+
+                    @if (!string.IsNullOrEmpty(message))
+                    {
+                        <p class="mt-4 text-center @(isSuccess ? "text-green-400" : "text-red-400")">
+                            @message
+                        </p>
+                    }
                 </div>
+            </EditForm>
 
-                <button type="submit"
-                        class="w-full rounded-lg bg-cyan-500 px-6 py-3 font-semibold text-white shadow-md transition hover:bg-cyan-400 hover:shadow-lg">
-                    @if (isSending)
-                    {
-                        <span>Sending...</span>
-                    }
-                    else
-                    {
-                        <span>Send Message</span>
-                    }
-                </button>
-
-                @if (!string.IsNullOrEmpty(message))
-                {
-                    <p class="mt-4 text-center @(isSuccess ? "text-green-400" : "text-red-400")">
-                        @message
-                    </p>
-                }
+            <!-- Contact Info -->
+            <div class="space-y-4 text-center">
+                <h2 class="text-2xl font-semibold text-cyan-400">Other Ways to Reach Us</h2>
+                <p class="text-lg text-gray-300">📞 Call us: <span class="font-semibold text-white">+44 7388 224750</span></p>
+                <p class="text-lg text-gray-300">📧 Email: <span class="font-semibold text-white">telstarlondon@gmail.com</span></p>
+                <p class="text-lg text-gray-300">📍 Location: London, UK</p>
             </div>
-        </EditForm>
 
-        <!-- Contact Info -->
-        <div class="space-y-4 text-center">
-            <h2 class="text-2xl font-semibold text-cyan-400">Other Ways to Reach Us</h2>
-            <p class="text-lg text-gray-300">📞 Call us: <span class="font-semibold text-white">+44 7388 224750</span></p>
-            <p class="text-lg text-gray-300">📧 Email: <span class="font-semibold text-white">telstarlondon@gmail.com</span></p>
-            <p class="text-lg text-gray-300">📍 Location: London, UK</p>
+            <!-- Closing -->
+            <div class="mt-12 text-center">
+                <h3 class="text-2xl font-bold text-cyan-400">Let’s Make Your Event Unforgettable.</h3>
+                <p class="mt-2 text-gray-300">Sound, visuals, energy — Telstar brings it all together.</p>
+            </div>
+
         </div>
+    </section>
+</div>
 
-        <!-- Closing -->
-        <div class="mt-12 text-center">
-            <h3 class="text-2xl font-bold text-cyan-400">Let’s Make Your Event Unforgettable.</h3>
-            <p class="mt-2 text-gray-300">Sound, visuals, energy — Telstar brings it all together.</p>
-        </div>
-
-    </div>
-</section>
 
 @code {
     private readonly string web3FormsKey = "e5fc3a39-dd52-4f26-9405-7861d31845c9";
